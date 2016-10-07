@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html ng-app= "HelloWorld">
+<html ng-app= "ListaTelefonica">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="angular-1.5.8/angular.js"></script>
 <script type="text/javascript" >
-var app = angular.module("HelloWorld", []);
-angular.module("HelloWorld").controller("HelloWorldController", function($scope){
-	$scope.message = "Ola teste";
+var app = angular.module("ListaTelefonica", []);
+angular.module("ListaTelefonica").controller("ListaTelefonicaController", function($scope){
+	$scope.app = "Lista Telefonica";
 });
 </script>
 
 </head>
-<body ng-controller="HelloWorldController">
-{{message}}
-
+<body ng-controller="ListaTelefonicaController">
+	<div></div>
 </body>
 </html>
