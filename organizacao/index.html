@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/ListaTelefonicaController.js"> </script>
 <script type="text/javascript" src="js/service/ContatoService.js"> </script>
 <script type="text/javascript" src="js/service/OperadoraService.js"> </script>
+<script type="text/javascript" src="js/filter/NomeFilter.js"> </script>
 
 
 </head>
@@ -32,7 +33,7 @@
 		<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioBusca}  | limitTo:10 | orderBy:ordernacao:direcao">
 		<!-- <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioBusca"> -->
 			<td><input type="checkbox" ng-model="contato.selecionado"></td>
-			<td>{{contato.nome}}</td>
+			<td>{{contato.nome | nome}}</td>
 			<td>{{contato.telefone}}</td>
 			<td>{{contato.operadora.nome | lowercase}}</td>
 			<td>{{contato.data | date:'EEEE, dd/MM/yyyy'}}</td>
