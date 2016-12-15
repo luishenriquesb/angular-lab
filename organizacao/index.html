@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/ui.css">
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="angular-messages.js"></script>
 <script type="text/javascript" src="angular-locale_pt-br.js"></script>
@@ -14,12 +15,19 @@
 <script type="text/javascript" src="js/service/ContatoService.js"> </script>
 <script type="text/javascript" src="js/service/OperadoraService.js"> </script>
 <script type="text/javascript" src="js/filter/NomeFilter.js"> </script>
-
+<script type="text/javascript" src="js/diretives/uiAlertDiretive.js"> </script>
+<script type="text/javascript" src="js/diretives/uiDateMaskDirective.js"> </script>
 
 </head>
 <body ng-controller="ListaTelefonicaController">
+
+	
+
 	<div class="jumbotron">
 	<h3>{{app}}</h3>
+	
+	<ui-alert titulo="Aconteceu problema">{{message}}</ui-alert>
+		
 	<input class="form-control" type="text" ng-model="criterioBusca" placeholder="O que você está buscando" />
 	<table class="table table-striped">
 		<tr >
@@ -44,18 +52,27 @@
 	
 	<!-- Formulários ---------------------------->
 	<form name="contatoForm">
-		<input class="form-control" placeholder="Nome" type="text"
-			ng-model="contato.nome" ng-required="true" name="nome"  ng-minlength="10"/> 
-		
-			<input class="form-control"
-			placeholder="Telefone" type="text" ng-model="contato.telefone" name="telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
-			<select  class="form-control" ng-model="contato.operadora" 
-				ng-options="operadora.nome + ' (' + (operadora.preco | currency )+ ')'  for operadora in operadoras"> 
+			<input class="form-control" placeholder="Nome" type="text"
+				ng-model="contato.nome" ng-required="true" name="nome"
+				ng-minlength="10" /> 
+			
+			<input class="form-control" type="text"
+				ng-model="contato.data" name="data" placeholder="Data" ui-date-mask />
+			
+			 <input
+				class="form-control" placeholder="Telefone" type="text"
+				ng-model="contato.telefone" name="telefone" ng-required="true"
+				ng-pattern="/^\d{4,5}-\d{4}$/" /> 
+				
+			<select class="form-control"
+				ng-model="contato.operadora"
+				ng-options="operadora.nome + ' (' + (operadora.preco | currency )+ ')'  for operadora in operadoras">
 				<!-- ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"> -->
 				<!-- ng-options="operador.codigo as operadora.nome group by categoria for operadora in operadoras"> -->
 				<option value="">Selecione uma operadora</option>
 			</select>
-	</form>	
+
+		</form>	
 	
 	<!-- Validações ---------------------------->
 	<div ng-messages="contatoForm.nome.$error" ng-show="contatoForm.nome.$touched && contatoForm.nome.$invalid" class="alert alert-danger">
