@@ -1,4 +1,4 @@
-angular.module("ListaTelefonica").directive("uiDateMask", function(){
+angular.module("ListaTelefonica").directive("uiDateMask", function($filter){
 	return {
 		require: "ngModel", // chama alguma api disponivel no modulo
 		//crtl - retorna as apis requiridas
