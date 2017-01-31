@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/ui.css">
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="libs/angular-messages.js"></script>
+<script type="text/javascript" src="libs/angular-route.js"></script>
 <script type="text/javascript" src="libs/angular-locale_pt-br.js"></script>
 <script type="text/javascript" src="libs/serialGenerator/serialGenerator.js"></script>
 <script type="text/javascript" src="js/App.js"></script>
@@ -19,124 +20,11 @@
 <script type="text/javascript" src="js/diretives/uiAlertDiretive.js"> </script>
 <script type="text/javascript" src="js/diretives/uiDateMaskDirective.js"> </script>
 <script type="text/javascript" src="js/diretives/uiAccordionDirective.js"> </script>
+<script type="text/javascript" src="js/config/routeConfig.js"> </script>
 
 </head>
-<body ng-controller="ListaTelefonicaController">
-
-	
-
-	<div class="jumbotron">
-	
-	
-	<ui-accordions>
-			<ui-accordion title="Accordion 1">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</ui-accordion>
-
-			<ui-accordion title="Accordion 2">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</ui-accordion>
-
-			<ui-accordion title="Accordion 3">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</ui-accordion>
-			
-			<ui-accordion title="Accordion 4">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</ui-accordion>
-
-			<ui-accordion title="Accordion 5">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</ui-accordion>
-		</ui-accordions>
-	
-	
-	<h3>{{app}}</h3>
-	
-	<ui-alert titulo="Aconteceu problema">{{message}}</ui-alert>
-		
-	<input class="form-control" type="text" ng-model="criterioBusca" placeholder="O que você está buscando" />
-	<table class="table table-striped">
-		
-		<tr >
-			<th></th>
-			<th>Serial</th>
-			<th><a ng-click="ordernarPorCampo('nome')">Nome</a></th>
-			<th><a ng-click="ordernarPorCampo('telefone')">Telefone</a></th>
-			<th>Operadora</th>
-			<th>Data</th>
-			<th></th>
-		</tr>
-		<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioBusca}  | limitTo:10 | orderBy:ordernacao:direcao">
-		<!-- <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioBusca"> -->
-			<td><input type="checkbox" ng-model="contato.selecionado"></td>
-			<td>{{contato.serial}}</td>
-			<td>{{contato.nome | nome}}</td>
-			<td>{{contato.telefone}}</td>
-			<td>{{contato.operadora.nome | lowercase}}</td>
-			<td>{{contato.data | date:'EEEE, dd/MM/yyyy'}}</td>
-			<td><div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div></td>
-		</tr>
-	</table>
-	<hr/>
-	
-	<!-- Formulários ---------------------------->
-	<form name="contatoForm">
-			<input class="form-control" placeholder="Nome" type="text"
-				ng-model="contato.nome" ng-required="true" name="nome"
-				ng-minlength="10" /> 
-			
-			<input class="form-control" type="text"
-				ng-model="contato.data" name="data" placeholder="Data" ui-date-mask />
-			
-			 <input
-				class="form-control" placeholder="Telefone" type="text"
-				ng-model="contato.telefone" name="telefone" ng-required="true"
-				ng-pattern="/^\d{4,5}-\d{4}$/" /> 
-				
-			<select class="form-control"
-				ng-model="contato.operadora"
-				ng-options="operadora.nome + ' (' + (operadora.preco | currency )+ ')'  for operadora in operadoras">
-				<!-- ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"> -->
-				<!-- ng-options="operador.codigo as operadora.nome group by categoria for operadora in operadoras"> -->
-				<option value="">Selecione uma operadora</option>
-			</select>
-
-		</form>	
-	
-	<!-- Validações ---------------------------->
-	<div ng-messages="contatoForm.nome.$error" ng-show="contatoForm.nome.$touched && contatoForm.nome.$invalid" class="alert alert-danger">
-		<div ng-message="required">
-			Preencha o nome
-		</div>
-		<div ng-message="minlength" >
-			O nome deve ter no minimo 10 letras
-		</div>
-	</div>
-	
-	<div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
-		Preencha o telefone
-	</div>
-	<div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
-		formato do telefone é invalido
-	</div>
-		
-	<!-- Botões de ação ---------------------------->	
-		<button class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid"
-			ng-click="adicionarContato(contato)" >Adicionar contato</button>
-		
-		<button class="btn btn-danger btn-block" 
-		ng-click="apagarContatos(contatos)" ng-show="isContatoSelecionado(contatos)">Apagar Contatos</button>
-	
-		
-		<!-- <button class="btn btn-danger btn-block" 
-			ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contatos</button> -->
-		
-		
-		<p>{{10 | number:2}}</p>
-			
-	</div>
-	
-	<!-- <div ng-include="'footer.html'"></div> -->
+<body >	
+	<div ng-view></div>
+	<div ng-include="'footer.html'"></div> 
 </body>
 </html>
