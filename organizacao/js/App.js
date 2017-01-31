@@ -1,1 +1,1 @@
-var app = angular.module("ListaTelefonica", ["ngMessages"]);
+var app = angular.module("ListaTelefonica", ["ngMessages", "serialGenerator"]);

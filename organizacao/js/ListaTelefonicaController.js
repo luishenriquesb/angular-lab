@@ -1,10 +1,13 @@
 angular.module("ListaTelefonica").controller("ListaTelefonicaController",
-			function($scope, $filter, ContatoService, OperadoraService) {
+			function($scope, $filter, ContatoService, OperadoraService, serialGenerator) {
 				$scope.app = "Lista Telefonica";
 				
 				//Serviços
 				var carregarContatos = function() {
 					ContatoService.getContatos().success(function(data){
+						data.forEach(function (item) {
+							item.serial = serialGenerator.generate();
+						});
 						$scope.contatos = data;
 					}).error(function(data){
 						$scope.message = "Não carregou contatos";

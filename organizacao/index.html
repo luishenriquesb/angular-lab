@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/ui.css">
 <script type="text/javascript" src="angular.js"></script>
-<script type="text/javascript" src="angular-messages.js"></script>
-<script type="text/javascript" src="angular-locale_pt-br.js"></script>
+<script type="text/javascript" src="libs/angular-messages.js"></script>
+<script type="text/javascript" src="libs/angular-locale_pt-br.js"></script>
+<script type="text/javascript" src="libs/serialGenerator/serialGenerator.js"></script>
 <script type="text/javascript" src="js/App.js"></script>
 <script type="text/javascript" src="js/Config.js"></script>
 <script type="text/javascript" src="js/ListaTelefonicaController.js"> </script>
@@ -56,8 +57,10 @@
 		
 	<input class="form-control" type="text" ng-model="criterioBusca" placeholder="O que você está buscando" />
 	<table class="table table-striped">
+		
 		<tr >
 			<th></th>
+			<th>Serial</th>
 			<th><a ng-click="ordernarPorCampo('nome')">Nome</a></th>
 			<th><a ng-click="ordernarPorCampo('telefone')">Telefone</a></th>
 			<th>Operadora</th>
@@ -67,6 +70,7 @@
 		<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioBusca}  | limitTo:10 | orderBy:ordernacao:direcao">
 		<!-- <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioBusca"> -->
 			<td><input type="checkbox" ng-model="contato.selecionado"></td>
+			<td>{{contato.serial}}</td>
 			<td>{{contato.nome | nome}}</td>
 			<td>{{contato.telefone}}</td>
 			<td>{{contato.operadora.nome | lowercase}}</td>
